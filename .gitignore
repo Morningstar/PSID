@@ -1,2 +1,5 @@
 
 *.pyc
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/inspectionProfiles/Project_Default.xml
+inputData/PSIDCrosswalk_AsOf2021_clean.csv
