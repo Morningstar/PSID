@@ -245,6 +245,10 @@ class DynanAnalysis(ReplicationAnalyzer.InequalityAnalyzer):
                                                         year = self.endYear,
                                                         varMapping = None,
                                                         ignoreUnmappedVars = True)
+
+        if not os.path.exists(os.path.join(self.baseDir, self.outputSubDir)):
+            os.makedirs(os.path.join(self.baseDir, self.outputSubDir))
+
         tester.exploreData(
             reportFileNameWithPathNoExtension = os.path.join(self.baseDir, self.outputSubDir, "CombinedDynan_ActiveWealthVars_" + self.inflatedTimespan),
             weightVar = "LongitudinalWeightHH_" + self.eyStr)

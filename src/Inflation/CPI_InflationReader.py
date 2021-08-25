@@ -3,7 +3,7 @@ import pandas as pd
 
 # Todo -- this should be in the main param file
 DEFAULT_CPI_DIR = "C:/Dev/src/MorningstarGithub/PSID/inputData/CPI_Inflation/"
-DEFAULT_CPI_FILE = "CPI_Data_From_InflationDataCom.csv"
+DEFAULT_CPI_FILE = "CPI.csv"
 
 class CPIInflationReader:
 

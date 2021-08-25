@@ -98,20 +98,15 @@ class GittlemanAnalysis(ReplicationAnalyzer.InequalityAnalyzer):
         
     def readData(self):
         super().readData()
-        for year in [self.startYear, self.endYear]: # (self.yearsWithFamilyData.copy()):
-            # self.dta.loc[self.dta['raceR_' +  str(year)].ne('Black'), 'raceR_' +  str(year)] = 'White'
+        for year in [self.startYear, self.endYear]:
             self.dta['raceR_' +  str(year)].replace({'Hispanic':'White'}, inplace=True)
-            # self.dta['raceR_' +  str(year)].replace({'Other':'White'}, inplace=True)
-        
+
         # Not clear why, but this looks like the only why the data lines up with their report
         if self.endYear == 1994:
             self.dta.loc[self.dta.PrivateRetirePlan_SinceLastQYr_AmountMovedOut_1994 == 9999997] = 0
 
-
-
         # Remove all Recontact Families
         self.dta = self.dta.loc[self.dta['ChangeInCompositionFU_' + self.eyStr].ne(8)].copy()
-
 
     def checkQualityOfInputData(self):
         tsTester = SurveyTimeSeriesQA(dta = self.dta, dfLabel = "Gittleman Analysis (" + str(self.timespan) + ")",
@@ -519,7 +514,10 @@ class GittlemanAnalysis(ReplicationAnalyzer.InequalityAnalyzer):
                                                               year = self.endYear,
                                                               varMapping = None,
                                                               ignoreUnmappedVars = True)
-            
+
+            if not os.path.exists(os.path.join(self.baseDir, self.outputSubDir)):
+                os.makedirs(os.path.join(self.baseDir, self.outputSubDir))
+
             csTester.exploreData(
                 reportFileNameWithPathNoExtension = os.path.join(self.baseDir, self.outputSubDir, "CombinedGittlman_ActiveSavingsVars_" + self.inflatedTimespan),
                 weightVar = "LongitudinalWeightHH_" + self.eyStr
@@ -601,6 +599,9 @@ class GittlemanAnalysis(ReplicationAnalyzer.InequalityAnalyzer):
         results = pd.concat([resultsByRace, results, resultsByAge, resultsByIncome], ignore_index=True, sort=False)
         
         results['activeSavings_AvgAsSums_' + self.inflatedTimespan] = results.netactive_real_sum / (results.real_pre_tax_income_sum * self.duration)
+
+        if not os.path.exists(os.path.join(self.baseDir, self.outputSubDir)):
+            os.makedirs(os.path.join(self.baseDir, self.outputSubDir))
 
         results.to_csv(os.path.join(self.baseDir, self.outputSubDir, 'SavingsRates_Weighted_' + self.eyStr +'.csv'))
         

@@ -73,7 +73,7 @@ class SWAnalysisLongTerm(InequalityAnalysisBase.InequalityAnalysisBase):
             timespan = syStr + "_" + eyStr
             inflatedTimespan = syStr + "_" + eyStr + "_as_" + self.tyStr
 
-            dta = pd.read_csv(os.path.join(self.baseDir, self.inputSubDir, self.inputBaseName + 'TwoPeriod_' + inflatedTimespan +'.csv'))
+            dta = pd.read_csv(os.path.join(self.baseDir, self.inputSubDir, 'TwoPeriod_' +  self.inputBaseName + inflatedTimespan +'.csv'))
 
             # Do our own custom filtering
             # We need ONLY people who are the same head over time

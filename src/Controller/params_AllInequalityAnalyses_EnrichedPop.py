@@ -36,21 +36,21 @@ params = {
     'PSID_DATA_DIR': ProjectDirectory + '/inputData',
 
     # What steps of the data preparation do we want to run?  Select these as needed (these are in order)
-    'reloadRawData': False,
-    'extractData': False,
-    'recodeData': False,
-    'callTaxsim': False,
-    'addTaxFilesIgnoringMissing': False,
-    'extractAndCombineInequalityData': False,
+    'reloadRawData': True,
+    'extractData': True,
+    'recodeData': True,
+    'callTaxsim': True,
+    'addTaxFilesIgnoringMissing': True,
+    'extractAndCombineInequalityData': True,
     'calcSavingsRates':True,
-    'describeTimesSeries': False, # Time consuming.  Skip if not needed
-        'includeExtremeChangeAnalysis': False,  # Especially Time consuming.  Skip if not needed
+    'describeTimesSeries': True, # Time consuming.  Skip if not needed
+        'includeExtremeChangeAnalysis': True,  # Especially Time consuming.  Skip if not needed
 
     # Which final report are we generating?
-    'runSW_UnpackingSavingsReport': False,
-    'runSW_AccumulatedWealthOverTime': False,
-    'runDynanReplication' : False,
-    'runGittlemanReplication' : False,
+    'runSW_UnpackingSavingsReport': True,
+    'runSW_AccumulatedWealthOverTime': True,
+    'runDynanReplication' : True,
+    'runGittlemanReplication' : True,
     'runZewdeReplication' : False,
 }
 

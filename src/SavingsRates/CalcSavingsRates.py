@@ -1000,7 +1000,7 @@ class CalcSavingsRates(InequalityAnalysisBase.InequalityAnalysisBase):
 
 
 
-''' Allow execution from command line, etc'''
+''' Allow execution from command line, etc. Useful for debugging.'''
 if __name__ == "__main__":
     calcer = CalcSavingsRates(
         baseDir='C:/dev/sensitive_data/InvestorSuccess/Inequality',
@@ -1009,15 +1009,14 @@ if __name__ == "__main__":
         outputBaseName="WithSavings_",
         outputSubDir='inequalityOutput_enrichedPop',
     )
-    # calcer.doIt()
 
+    # calcer.doIt()
     # calcer.executeForTimespan(2015, 2017, 2019)
 
     calcer.clearData()
     calcer.setPeriod(2017, 2019, 2019)
     calcer.readLongitudinalData()
 
-    # self.calcDetermineAssetLevelCapitalGains_GittlemanStyle()
     calcer.fillNoAccountStockValues()
     calcer.calcDetermineAssetLevelCapitalGains_SimpliedSWStyle()
     calcer.calcTotalSavingsRate()
