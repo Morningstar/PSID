@@ -14,17 +14,22 @@ We hope you'll further improve and extend this ressearch. Read our [Contributors
 In this repository, you'll find both the input data (most of which is extracted from [the PSID's main site](https://psidonline.isr.umich.edu/)) under the directory "inputData", and the output Data used in the report under "outputData".
 Both contain zip files you'll need to extract before running the code.
 
-For more information on the data files, see here. 
+For more information on the data files, see below under "File Structure".
 
     
 # If you want to understand the methodology and how the code works 
 
 There is a detailed writeup how the code works, including how savings rates and capital gains are calculated, in the Docs directory of the repo, [GuideToTheDoc.docx](https://github.com/Morningstar/PSID/blob/main/docs/GuideToTheCode.docx)
 
-In short though, the PSID Financial Inequality Project is divided into a set of classes, which are called as needed from a central “Controller.py” script. The Controller takes a parameter file (e.g., params_AllInequalityAnalyses_EnrichedPop.py) which specifies both which stages in the process to execute, and parameters specific to those stages. 
-Conceptually, we can think about the process in 9 stages. Stages 1-4 are general purpose tools for using the PSID in a standardized, cleaned way.    Stages 5-7 further process the specific data needed for analyzing wealth accumulation: active savings rates, capital gains, inheritances, etc.   Step 8 outputs the particular analyses of wealth accumulation used in Morningstar’s report.  Step 9 compares those results with prior research in the field. 
-In addition to the final output for Morningstar’s report (in a Excel file called “FiguresForPaper”), the code is designed to generate extensive data at each step along the way, so that other researchers can either depart from subsequent steps and generate their own analyses, or dig into the intermediate data to check for errors, etc.   
-For more information on the stages of the data processing code, the files generated along the way, and the core savings/cap gains calculations, [read the docs](https://github.com/Morningstar/PSID/blob/main/docs/GuideToTheCode.docx).
+In short though:
+* The PSID Financial Inequality Project is divided into a set of classes, which are called as needed from a central “Controller.py” script. The Controller takes a parameter file (e.g., params_AllInequalityAnalyses_EnrichedPop.py) which specifies both which stages in the process to execute, and parameters specific to those stages. 
+* Conceptually, we can think about the process in 9 stages.
+    * Stages 1-4 are general purpose tools for using the PSID in a standardized, cleaned way.    
+    * Stages 5-7 further process the specific data needed for analyzing wealth accumulation: active savings rates, capital gains, inheritances, etc.   
+    * Step 8 outputs the particular analyses of wealth accumulation used in Morningstar’s report.  
+    * Step 9 compares those results with prior research in the field. 
+* In addition to the final output for Morningstar’s report (in a Excel file called “FiguresForPaper”), the code is designed to generate extensive data at each step along the way, so that other researchers can either depart from subsequent steps and generate their own analyses, or dig into the intermediate data to check for errors, etc.   
+* For more information on the stages of the data processing code, the files generated along the way, and the core savings/cap gains calculations, [read the docs](https://github.com/Morningstar/PSID/blob/main/docs/GuideToTheCode.docx).
 
 # If you want to run the analysis yourself  
 
