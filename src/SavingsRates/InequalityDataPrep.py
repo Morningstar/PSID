@@ -103,7 +103,7 @@ class InequalityDataPrep(InequalityAnalysisBase.InequalityAnalysisBase):
         
         self.useOriginalSampleOnly = useOriginalSampleOnly
 
-        self.inflator = CPI_InflationReader.CPIInflationReader() 
+        self.inflator = CPI_InflationReader.CPIInflationReader()
 
 
     def readRawData(self):

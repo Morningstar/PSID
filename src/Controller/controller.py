@@ -1,6 +1,7 @@
 '''
 This is the central controller for the PSID Financial Inequality Project. It controls the laoding, processing, and analysis of PSID family and wealth data from 1984 to 2019.
-It uses an imported param file to selectively switch on and off steps of this process.
+It uses an imported parameter file to selectively switch on and off steps of this process.
+Each step can be run separately (provided the necessary input files), to make analysis and debugging more efficient.
 '''
 
 import PSIDProcessing.Extractor as Extractor
@@ -20,9 +21,10 @@ import Replication.GittlemanAnalysis as GittlemanAnalysis
 import os
 import pandas as pd
 
+###
 # Pick which set of params to use. This could also be passed in from command line / main
 # These are the specific parameter files used in Morningstar's Report; you can and should create your own.
-
+###
 from Controller.params_AllInequalityAnalyses_EnrichedPop import params as params
 # from Controller.params_AllInequalityAnalyses_ConstantPop_NoRetirement import params as params
 # from Controller.params_AllInequalityAnalyses_ConstantPop import params as params

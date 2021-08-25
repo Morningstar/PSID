@@ -1,10 +1,14 @@
 import os
 import pandas as pd
 
+# Todo -- this should be in the main param file
+DEFAULT_NIPA_DIR = "C:/Dev/src/MorningstarGithub/PSID/inputData/Fed_NIPA/"
+DEFAULT_NIPA_FILE = "Price_Deflation.csv"
+
 class NIPAInflationReader:
     
-    def __init__(self, dataDirectory = "C:/Dev/public_data/Fed_NIPA", 
-                 inflationFileName = "Price_Deflation.csv"):
+    def __init__(self, dataDirectory = DEFAULT_NIPA_DIR,
+                 inflationFileName = DEFAULT_NIPA_FILE):
         self.dta = pd.read_csv(os.path.join(dataDirectory, inflationFileName))
         self.dta.rename(columns={'DATE':'date', 'DPCERD3A086NBEA': 'priceLevel', 'DPCERD3A086NBEA_PCH': 'percentChange'}, inplace=True)
         self.dta['year'] = pd.to_datetime(self.dta.date).dt.year 

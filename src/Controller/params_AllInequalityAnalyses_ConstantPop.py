@@ -1,4 +1,10 @@
+##################
+## This is the parameter file used for the "Constant Population" analysis in Morningstar's report "Unpacking Racial Disparities in Savings Rates"
+##################
+
 import Controller.varsForInequalityAnalysis as varsForInequalityAnalysis
+
+ProjectDirectory = "C:/Dev/src/MorningstarGithub/PSID"
 
 params = {
     # What years should we analyze?
@@ -14,19 +20,19 @@ params = {
     'individualVarsWeNeed2019': varsForInequalityAnalysis.individualVars,
     'individualVars_LoadRegardlessOfYear': varsForInequalityAnalysis.individualVars_LoadRegardlessOfYear,
 
-    # Core Diectories (written in the style of constants, but likely shouldn't be
-    'BASE_OUTPUT_DIR': 'C:/dev/sensitive_data/InvestorSuccess/Inequality',
-    'EXTRACTED_OUTPUT_SUBDIR': 'extractedPSID',
-    'MAPPED_OUTPUT_SUBDIR': 'mappedAndrecodedPSID',
-    'TAXSIM_OUTPUT_SUBDIR': 'taxsim',
-    'FINAL_PSID_OUTPUT_SUBDIR': 'finalInputPSID',
-    'CLEAN_INEQUALITY_DATA': 'inequalityInput_constantPop',
-    'INEQUALITY_OUTPUT': 'inequalityOutput_constantPop',
-    # 'SW_OUTPUT_SUBDIR': 'swOutput',
+    # Core Diectories (written in the style of constants, but likely shouldn't be)
+    'BASE_OUTPUT_DIR': ProjectDirectory + '/outputData',
+    'EXTRACTED_OUTPUT_SUBDIR': 'intermediateStages/extractedPSID',
+    'MAPPED_OUTPUT_SUBDIR': 'intermediateStages/mappedAndrecodedPSID',
+    'TAXSIM_OUTPUT_SUBDIR': 'intermediateStages/taxsim',
+    'FINAL_PSID_OUTPUT_SUBDIR': 'processedPSID',
+    'CLEAN_INEQUALITY_DATA': 'inputForMorningstarAnalysis_constantPop',
+    'INEQUALITY_OUTPUT': 'morningstarOutput_constantPop',
     'DYNAN_OUTPUT_SUBDIR': 'dynanOutput',
     'GITTLEMAN_OUTPUT_SUBDIR': 'gittlemanOutput',
+    'ZEWEDE_OUTPUT_SUBDIR': 'zewedeOutput',
 
-    'PSID_DATA_DIR': 'C:/dev/public_data/PSID',
+    'PSID_DATA_DIR': ProjectDirectory + '/inputData',
 
     # What steps of the data preparation do we want to run?  Select these as needed
     'reloadRawData': False,

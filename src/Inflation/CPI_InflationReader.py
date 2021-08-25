@@ -1,10 +1,14 @@
 import os
 import pandas as pd
 
+# Todo -- this should be in the main param file
+DEFAULT_CPI_DIR = "C:/Dev/src/MorningstarGithub/PSID/inputData/CPI_Inflation/"
+DEFAULT_CPI_FILE = "CPI_Data_From_InflationDataCom.csv"
+
 class CPIInflationReader:
-    
-    def __init__(self, cpiDirectory = "C:/Dev/public_data/CPI_Inflation/", 
-                 cpiFileName = "CPI_Data_From_InflationDataCom.csv"):
+
+    def __init__(self, cpiDirectory = DEFAULT_CPI_DIR,
+                 cpiFileName = DEFAULT_CPI_FILE):
         self.dta = pd.read_csv(os.path.join(cpiDirectory, cpiFileName))
         self.dta.rename(columns={'YEAR':'year', 'AVE': 'priceLevel'}, inplace=True)
         

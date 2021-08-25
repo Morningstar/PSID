@@ -1,4 +1,11 @@
+##################
+## This is the parameter file used for the "Total Population" analysis in Morningstar's report "Unpacking Racial Disparities in Savings Rates"
+##################
+
 import Controller.varsForInequalityAnalysis as varsForInequalityAnalysis
+
+# Update this based on the placement of your PSID Inequality Project files.
+ProjectDirectory = "C:/Dev/src/MorningstarGithub/PSID"
 
 params = {
     # What years should we analyze?
@@ -15,19 +22,18 @@ params = {
     'individualVars_LoadRegardlessOfYear': varsForInequalityAnalysis.individualVars_LoadRegardlessOfYear,
 
     # Core Diectories (written in the style of constants, but likely shouldn't be
-    'BASE_OUTPUT_DIR': 'C:/dev/sensitive_data/InvestorSuccess/Inequality',
-    'EXTRACTED_OUTPUT_SUBDIR': 'extractedPSID',
-    'MAPPED_OUTPUT_SUBDIR': 'mappedAndrecodedPSID',
-    'TAXSIM_OUTPUT_SUBDIR': 'taxsim',
-    'FINAL_PSID_OUTPUT_SUBDIR': 'finalInputPSID',
-    'CLEAN_INEQUALITY_DATA': 'inequalityInput_enrichedPop',
-    'INEQUALITY_OUTPUT': 'inequalityOutput_enrichedPop',
-    # 'SW_OUTPUT_SUBDIR': 'swOutput',
+    'BASE_OUTPUT_DIR': ProjectDirectory + '/outputData',
+    'EXTRACTED_OUTPUT_SUBDIR': 'intermediateStages/extractedPSID',
+    'MAPPED_OUTPUT_SUBDIR': 'intermediateStages/mappedAndrecodedPSID',
+    'TAXSIM_OUTPUT_SUBDIR': 'intermediateStages/taxsim',
+    'FINAL_PSID_OUTPUT_SUBDIR': 'processedPSID',
+    'CLEAN_INEQUALITY_DATA': 'inputForMorningstarAnalysis_enrichedPop',
+    'INEQUALITY_OUTPUT': 'morningstarOutput_enrichedPop',
     'DYNAN_OUTPUT_SUBDIR': 'dynanOutput',
     'GITTLEMAN_OUTPUT_SUBDIR': 'gittlemanOutput',
     'ZEWEDE_OUTPUT_SUBDIR': 'zewedeOutput',
 
-    'PSID_DATA_DIR': 'C:/dev/public_data/PSID',
+    'PSID_DATA_DIR': ProjectDirectory + '/inputData',
 
     # What steps of the data preparation do we want to run?  Select these as needed (these are in order)
     'reloadRawData': False,
@@ -36,7 +42,7 @@ params = {
     'callTaxsim': False,
     'addTaxFilesIgnoringMissing': False,
     'extractAndCombineInequalityData': False,
-    'calcSavingsRates':False,
+    'calcSavingsRates':True,
     'describeTimesSeries': False, # Time consuming.  Skip if not needed
         'includeExtremeChangeAnalysis': False,  # Especially Time consuming.  Skip if not needed
 
@@ -44,8 +50,8 @@ params = {
     'runSW_UnpackingSavingsReport': False,
     'runSW_AccumulatedWealthOverTime': False,
     'runDynanReplication' : False,
-    'runGittlemanReplication' : True,
-    'runZewdeReplication' : True,
+    'runGittlemanReplication' : False,
+    'runZewdeReplication' : False,
 }
 
 

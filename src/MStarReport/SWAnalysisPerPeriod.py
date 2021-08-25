@@ -6,36 +6,6 @@ from Survey.SurveyFunctions import *
 import MStarReport.InequalityAnalysisBase as InequalityAnalysisBase
 import MStarReport.AggregatePopulationAnalyzer as apa
 from io import BytesIO
-'''
-# Versions of Savings Analysis to Run
-1) Weighted Dynan -- All four Savings CalcStatsForTimePeriod
-2) Gittleman
-./ 3) Savings W/ and W/O SS and Pension Savings
-4) Add Value of Accrued Social Security
-./ 4) W/ and W/o student loan debt
-./ 5) Regression on causes of savings 
-
-To fix
-./ 1) Use actual race field, not Gittleman Version
-./ 2) Calc of 'All Other' Debt
-./ 3) Calc of Business and Other Real Estate Net Value
-./ 4) Add Private IRA Capital Gains versus Savings
-./ 5) Add 401k Capital Gains versus Savings
-./ 6) Separate out Non-Big-Gift help from family and others
-
-
-6) Figure out why there are INF savings rates starting in 2001
-7) Determine exactly why Dynan  savings rate >> here
-8) Filter to non-retired population?   Or try a filter among Working population
-9) Investigate Mean SR drop in 1994/9  
-10) Add Hispanic Immigrant Addtion at some point?
-11) Create optional population filters for analyses
-12) Investigate bad flow data for Employer Accounts
-13) Switch to Log income in the regressions
-14) Investigate Median Regression P values 
-15) Investigate high Active savings as percent of networth in 1999?
-20) Add section on unemployment - to be included in sim, just not agg. savings rate analyses 
-'''
 
 class SWAnalysisPerPeriod(InequalityAnalysisBase.InequalityAnalysisBase):
     

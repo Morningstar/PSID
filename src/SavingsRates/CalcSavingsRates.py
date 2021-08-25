@@ -28,7 +28,7 @@ def calcNominalRoRfromChange_Value(startValue_Uninflated, change_Inflated, durat
 
 class CalcSavingsRates(InequalityAnalysisBase.InequalityAnalysisBase):
     '''
-    Calculate HH-Asset-level savings & cap gains, then calculate HH-level savings rates.
+    Calculate Household-Asset-level savings & cap gains, then calculate HH-level savings rates.
     This is the core added value of the inequality analyses -- the rest is just prep and summary.
     We build on the examples of Dynan et al & Gittleman et all, expanding the analysis to handle
     new asset classes available in later data, and two combine the lessons from each author
@@ -267,17 +267,6 @@ class CalcSavingsRates(InequalityAnalysisBase.InequalityAnalysisBase):
                                           newBaseName='AllOtherDebts', nominalAnnualRoR_ZeroCoded=otherDebts_AnnualRateOfReturn,
                                           inflationForStock_StartOfPeriod=inflationForStock_StartOfPeriod,
                                           inflationForStock_EndOfPeriod=inflationForStock_EndOfPeriod)
-
-        '''
-        # Note -- we are INTENTIONALLY not filling in NAs here -- we want to propagate Nulls if there is no balance on either side
-        self.dta['AllOtherDebts_TotalChangeInWealth_' + self.inflatedTimespan] = (
-            self.dta['valueOfAllOtherDebts_Net_' + self.syStr] * inflationForStock_StartOfPeriod).sub(
-            self.dta['valueOfAllOtherDebts_Net_' + self.eyStr] * inflationForStock_EndOfPeriod)
-        self.dta['AllOtherDebts_CapitalGains_' + self.inflatedTimespan] = -(self.dta['valueOfAllOtherDebts_Net_' + self.syStr] * inflationForStock_StartOfPeriod * otherDebts_RateOfReturn)
-        self.dta['AllOtherDebts_Savings_' + self.inflatedTimespan] = (
-            self.dta['AllOtherDebts_TotalChangeInWealth_' + self.inflatedTimespan].sub(
-            self.dta['AllOtherDebts_CapitalGains_' + self.inflatedTimespan]))
-        '''
 
         # 9. Add Private IRAs/Annuities here as a distinct Component
         if self.startYear >= 1999:  # the year in which we started getting Value of Private Retirement Plans
@@ -982,7 +971,11 @@ class CalcSavingsRates(InequalityAnalysisBase.InequalityAnalysisBase):
                                                             'Total_CapitalGains_' + self.inflatedTimespan,
                                                             'Total_GrossSavings_' + self.inflatedTimespan,
                                                             ], alphabetizeTheOthers=True)
+
+        # Save all of the data we might need
+        # Note -- The full dataset can be overwhelming....
         self.saveLongitudinalData()
+
         return statusCounts
 
     def doIt(self, useCleanedDataOnly = True, excludeRetirementSavings = False):

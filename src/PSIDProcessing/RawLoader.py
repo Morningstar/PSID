@@ -12,11 +12,12 @@ optionally extracting only those variables of interest
 '''
 class RawLoader:
 
-    familyDir = 'FamilyData'
-    individualDir = 'IndividualData'
-    wealthDir = 'WealthData'
+    combinedDir = 'PSIDFamilyFiles_2021Extract'
+
+    familyDir = 'PSIDFamilyData_Prepackaged'
+    individualDir = 'PSIDIndividualData'
+    wealthDir = 'PSIDWealthData'
     savingDir = 'ActiveSavings/ActSavings89_94'
-    combinedDir = 'CombinedNewDownload'
     # startYear = None
     # endYear = None
 
@@ -131,7 +132,7 @@ class RawLoader:
         concw = copy.deepcopy(concw.loc[2:])
         return concw
            
-    def loadRawPSID_FamilyOnly(self, fieldsToKeep = None, forceReload = True):
+    def loadRawPSID_FamilyOnly(self, fieldsToKeep = None, forceReload = False):
         dict1 = self.readCombinedNewDownload(fieldsToKeep= fieldsToKeep, forceReload=forceReload)
         dict2 = self.readFamilyAndWealthData(excludeCombinedYears=True, fieldsToKeep= fieldsToKeep, forceReload=forceReload)
         dict2.update(dict1)
@@ -148,11 +149,11 @@ class RawLoader:
                 
         # Individual data
         self.rawind = self.readIndividualData()
-        
+
+        # Not used:
         # self.rawchild = pd.read_stata('ChildHistoryData/childhistory.dta')
-        
         # Consumption Crosswalk
-        self.concw = self.readConsumptionCrossWalk()
+        # self.concw = self.readConsumptionCrossWalk()
  
     def getFamilyData(self):
         return self.rawfam

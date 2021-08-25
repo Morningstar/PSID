@@ -80,21 +80,21 @@ class InequalityAnalysisBase():
     def saveCrossSectionalData(self, yearData, year):
         if not os.path.exists(os.path.join(self.baseDir, self.outputSubDir)):
             os.makedirs(os.path.join(self.baseDir, self.outputSubDir))
-        yearData.to_csv(os.path.join(self.baseDir, self.outputSubDir, self.outputBaseName + 'YearData_' + self.getInflatedYearSuffix(year) +'.csv'), index=False)
+        yearData.to_csv(os.path.join(self.baseDir, self.outputSubDir, 'YearData_' + self.outputBaseName + self.getInflatedYearSuffix(year) +'.csv'), index=False)
 
     def saveLongitudinalData(self):
         if not os.path.exists(os.path.join(self.baseDir, self.outputSubDir)):
             os.makedirs(os.path.join(self.baseDir, self.outputSubDir))
-        self.dta.to_csv(os.path.join(self.baseDir, self.outputSubDir, self.outputBaseName + "TwoPeriod_" + self.inflatedTimespan + ".csv"), index=False)
+        self.dta.to_csv(os.path.join(self.baseDir, self.outputSubDir, 'TwoPeriod_' + self.outputBaseName +  self.inflatedTimespan + ".csv"), index=False)
 
     # When we're reading, it's input!
     def readCrossSectionalData(self, year):
-        self.dta = pd.read_csv(os.path.join(self.baseDir, self.inputSubDir, self.inputBaseName + 'YearData_' + self.getInflatedYearSuffix(year) +'.csv'))
+        self.dta = pd.read_csv(os.path.join(self.baseDir, self.inputSubDir, 'YearData_' + self.inputBaseName + self.getInflatedYearSuffix(year) +'.csv'))
         if self.useCleanedDataOnly:
             self.dta = self.dta[self.dta["cleaningStatus_" + str(year)] == "Keep"].copy()
 
     def readLongitudinalData(self):
-        self.dta = pd.read_csv(os.path.join(self.baseDir, self.inputSubDir, self.inputBaseName + 'TwoPeriod_' + self.inflatedTimespan +'.csv'))
+        self.dta = pd.read_csv(os.path.join(self.baseDir, self.inputSubDir, 'TwoPeriod_' + self.inputBaseName + self.inflatedTimespan +'.csv'))
         if self.useCleanedDataOnly:
             self.dta = self.dta[(self.dta["cleaningStatus_" + self.timespan] == "Keep") &
                                 (self.dta["cleaningStatus_" + self.syStr] == "Keep") &
