@@ -494,16 +494,16 @@ class GittlemanAnalysis(ReplicationAnalyzer.InequalityAnalyzer):
         self.dta['largeGift_All_AmountHH_' + self.inflatedTimespan] = self.dta['largeGift_All_AmountHH_' + self.eyStr]*inflationForFlow
         self.dta['Total_NetActiveSavings_'  + self.inflatedTimespan]= self.dta['Total_GrossSavings_' + self.inflatedTimespan].sub(self.dta['largeGift_All_AmountHH_' + self.inflatedTimespan], fill_value=0).add(self.dta['netAssetMove_' + self.inflatedTimespan], fill_value=0).add(self.dta['netIRAandAnnuityChange_' + self.inflatedTimespan], fill_value=0)
 
-        self.dta['activeSavingsRate_PerPerson_' + self.inflatedTimespan] = (self.dta['Total_NetActiveSavings_'  + self.inflatedTimespan] / self.duration)
+        self.dta['activeSavingsRate_AnnualHH_' + self.inflatedTimespan] = (self.dta['Total_NetActiveSavings_'  + self.inflatedTimespan] / self.duration)
         # Its difficult to tell which income var Gittleman used, but it appears to be the Real, PreTax Income
-        self.dta['activeSavingsRate_PerPerson_' + self.inflatedTimespan] = (self.dta['activeSavingsRate_PerPerson_' + self.inflatedTimespan].div(self.dta['averageRealBeforeTaxIncome_AllYears_' + self.inflatedTimespan], fill_value=0))
+        self.dta['activeSavingsRate_AnnualHH_' + self.inflatedTimespan] = (self.dta['activeSavingsRate_AnnualHH_' + self.inflatedTimespan].div(self.dta['averageRealBeforeTaxIncome_AllYears_' + self.inflatedTimespan], fill_value=0))
 
 
         if debugAndReport:        
             varsToExpore = varsUsed + ['averageNominalIncome_AllYears_' + self.timespan, 'TotalTax_' + self.eyStr, 'TotalTax_' + self.syStr] + \
                                        ['Total_ChangeInWealth_'  + self.inflatedTimespan, 'Total_CapitalGains_'  + self.inflatedTimespan, 'Total_GrossSavings_'  + self.inflatedTimespan, 'Total_NetActiveSavings_'  + self.inflatedTimespan, 
                                        'netMoveIn_' + self.inflatedTimespan, 'netMoveOut_' + self.inflatedTimespan, 'netIRAandAnnuityChange_' + self.inflatedTimespan, 
-                                       'activeSavingsRate_PerPerson_' + self.inflatedTimespan,
+                                       'activeSavingsRate_AnnualHH_' + self.inflatedTimespan,
                                         'LongitudinalWeightHH_' + self.eyStr
                                        ]
     
@@ -557,7 +557,7 @@ class GittlemanAnalysis(ReplicationAnalyzer.InequalityAnalyzer):
                     'changeInRealNetWorth_sum' : ('changeInRealNetWorth_' + self.inflatedTimespan, 'sum'),
                     'netactive_real_sum': ('Total_NetActiveSavings_'  + self.inflatedTimespan, 'sum'),
                     
-                    'active_median': ('activeSavingsRate_PerPerson_' + self.inflatedTimespan, 'median'),
+                    'active_median': ('activeSavingsRate_AnnualHH_' + self.inflatedTimespan, 'median'),
 
                     # Input Values for Savings Calc
                     'change_in_asset_value_sum': ('Total_ChangeInWealth_'  + self.inflatedTimespan, 'sum'),
@@ -702,7 +702,7 @@ class GittlemanAnalysis(ReplicationAnalyzer.InequalityAnalyzer):
                     'real_networth_start_sum': ('inflatedNetWorthWithHome_' + self.inflatedStart, 'sum'),
                     'real_networth_end_sum': ('inflatedNetWorthWithHome_' + self.inflatedEnd, 'sum'),
                     
-                    'active_savings_rate_median': ('activeSavingsRate_PerPerson_' + self.inflatedTimespan, 'median'), 
+                    'active_savings_rate_median': ('activeSavingsRate_AnnualHH_' + self.inflatedTimespan, 'median'),
                     'real_pre_tax_income_sum' : ('averageRealBeforeTaxIncome_AllYears_' + self.inflatedTimespan, 'sum'),
                     'netactive_real_sum': ('Total_NetActiveSavings_'  + self.inflatedTimespan, 'sum'),                    
                                 
@@ -947,7 +947,7 @@ class GittlemanAnalysis(ReplicationAnalyzer.InequalityAnalyzer):
 
 
         tmp.rename(columns={'averageRealBeforeTaxIncome_AllYears_' + self.inflatedTimespan: 'Income',
-                            'activeSavingsRate_PerPerson_' + self.inflatedTimespan : 'SavingsRate',
+                            'activeSavingsRate_AnnualHH_' + self.inflatedTimespan : 'SavingsRate',
                             'ageR_' + self.syStr: 'Age',
                             'NumChildrenInFU_' + self.syStr: 'NumChildren',
                             'educationYearsR_' + self.syStr: 'Education'
@@ -1008,7 +1008,7 @@ class GittlemanAnalysis(ReplicationAnalyzer.InequalityAnalyzer):
                                     'averageRealBeforeTaxIncome_AllYears_' + self.inflatedTimespan,
                                      
                                     'Total_NetActiveSavings_'  + self.inflatedTimespan,
-                                    'activeSavingsRate_PerPerson_' + self.inflatedTimespan,
+                                    'activeSavingsRate_AnnualHH_' + self.inflatedTimespan,
                                     
                                     'Total_ChangeInWealth_'  + self.inflatedTimespan,
                                     'Total_CapitalGains_'  + self.inflatedTimespan,

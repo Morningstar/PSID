@@ -153,4 +153,4 @@ Here is a short guide to the variable names:
         * 'SmallGift_All_AmountHH': how much money the HH received in small (<=10k) gifts and inheritances
         * 'netAssetMove': the net effect of people moving in and out of the household, on household net worth
     * The saving rate:
-        * activeSavingsRate_PerPerson_\_[StartYear]\_[EndYear]\_as\_[InflatedToYear]. This is the annualized household saving rate, as % of average income (yeah, I know, it says per person..  Anyone want to fix that throughout the code and submit a pull request?)
+        * activeSavingsRate_AnnualHH_\_[StartYear]\_[EndYear]\_as\_[InflatedToYear]. This is the annualized household saving rate, as % of average income

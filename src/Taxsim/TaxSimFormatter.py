@@ -221,7 +221,7 @@ class TaxSimFormatter:
         replace childcare = 12*childcare if childcare_expense_unit == 5 
         '''
 
-        # Note --  this field has many problems. Needs to be checked carefully
+        # TODO --  this Mortgage Payment field has many problems. Needs to be checked carefully
         dta['mortgage'] = dta.MortgagePaymentAnnualHH.sub(dta.HomePropertyTaxAnnualHH, fill_value=0).sub(dta.HomeInsuranceAnnualHH, fill_value=0) # incomplete should have other deductions, and should only ve
 
         # Taxsim data constraints
@@ -479,5 +479,6 @@ def combineFiles(params, famExtractor):
         else:
             yearData['fiitax'] = None
             yearData['siitax'] = None
+            yearData['fica'] = None
             yearData.to_csv(os.path.join(params.BASE_OUTPUT_DIR, params.FINAL_PSID_OUTPUT_SUBDIR, "extractedPSID_withMRTax_" + str(year) + ".csv"), index=False)
 

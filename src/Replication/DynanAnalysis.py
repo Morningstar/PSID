@@ -231,8 +231,8 @@ class DynanAnalysis(ReplicationAnalyzer.InequalityAnalyzer):
                 - self.dta['valueOfAllOtherDebts_Net_' + self.eyStr]*inflationForStock_EndOfPeriod \
             )
 
-        self.dta['activeSavingsRate_PerPerson_' + self.inflatedTimespan] = (self.dta['activeWealthChange_' + self.inflatedTimespan] / self.dta['averageRealAfterTaxIncome_AllYears_' + self.inflatedTimespan]) / self.duration
-        varsToExpore = varsUsed + ['LongitudinalWeightHH_' + self.eyStr, 'activeWealthChange_' + self.inflatedTimespan, 'activeSavingsRate_PerPerson_' + self.inflatedTimespan, 'netMoveIn_' + self.inflatedTimespan, 'netMoveOut_' + self.inflatedTimespan, 'savingsRateByNetWorth_' + self.inflatedTimespan]
+        self.dta['activeSavingsRate_AnnualHH_' + self.inflatedTimespan] = (self.dta['activeWealthChange_' + self.inflatedTimespan] / self.dta['averageRealAfterTaxIncome_AllYears_' + self.inflatedTimespan]) / self.duration
+        varsToExpore = varsUsed + ['LongitudinalWeightHH_' + self.eyStr, 'activeWealthChange_' + self.inflatedTimespan, 'activeSavingsRate_AnnualHH_' + self.inflatedTimespan, 'netMoveIn_' + self.inflatedTimespan, 'netMoveOut_' + self.inflatedTimespan, 'savingsRateByNetWorth_' + self.inflatedTimespan]
         
         if (self.startYear == 1984 and self.endYear == 1989):
             self.dta['activeSavingsRate_Person_Alt_' + self.inflatedTimespan] = (self.dta['ActiveSavings_PSID1989_' + self.eyStr] / self.dta['averageRealAfterTaxIncome_AllYears_' + self.inflatedTimespan]) / self.duration
@@ -397,8 +397,8 @@ class DynanAnalysis(ReplicationAnalyzer.InequalityAnalyzer):
                     savingsByNetWorth_avg = ('savingsRateByNetWorth_' + self.inflatedTimespan, 'mean'),
                     savingsByNetWorth_median = ('savingsRateByNetWorth_' + self.inflatedTimespan, 'median'),
 
-#                    active_avg = ('activeSavingsRate_PerPerson_' + self.inflatedTimespan, 'mean'),
-                    active_median = ('activeSavingsRate_PerPerson_' + self.inflatedTimespan, 'median'),
+#                    active_avg = ('activeSavingsRate_AnnualHH_' + self.inflatedTimespan, 'mean'),
+                    active_median = ('activeSavingsRate_AnnualHH_' + self.inflatedTimespan, 'median'),
 
 #                    active_PSID_avg = ('activeSavingsRate_Person_Alt_' + self.inflatedTimespan, 'mean'),
                     active_PSID_median = ('activeSavingsRate_Person_Alt_' + self.inflatedTimespan, 'median'),
@@ -442,8 +442,8 @@ class DynanAnalysis(ReplicationAnalyzer.InequalityAnalyzer):
                     # 'savingsByNetWorth_avg': ('savingsRateByNetWorth_' + self.inflatedTimespan, 'mean'),
                     'savingsByNetWorth_median': ('savingsRateByNetWorth_' + self.inflatedTimespan, 'median'),
 
-                    # 'active_avg': ('activeSavingsRate_PerPerson_' + self.inflatedTimespan, 'mean'),
-                    'active_median': ('activeSavingsRate_PerPerson_' + self.inflatedTimespan, 'median'),
+                    # 'active_avg': ('activeSavingsRate_AnnualHH_' + self.inflatedTimespan, 'mean'),
+                    'active_median': ('activeSavingsRate_AnnualHH_' + self.inflatedTimespan, 'median'),
 
                     'income_totaltaxable_avg': ('totalIncomeHH_' + self.eyStr, 'mean'),
                     'income_totaltaxable_median': ('totalIncomeHH_' + self.eyStr, 'median'),
@@ -513,7 +513,7 @@ class DynanAnalysis(ReplicationAnalyzer.InequalityAnalyzer):
                                      
                                     'savingsRateByNetWorth_' + self.inflatedTimespan,
                                     'activeWealthChange_' + self.inflatedTimespan,
-                                    'activeSavingsRate_PerPerson_' + self.inflatedTimespan
+                                    'activeSavingsRate_AnnualHH_' + self.inflatedTimespan
                                     ])
 
 

@@ -69,7 +69,7 @@ class InequalityDataPrep(InequalityAnalysisBase.InequalityAnalysisBase):
                                   
                             'FederalIncomeTaxesRS', 'FederalIncomeTaxesO',
                               # From TaxSim:
-                             'fiitax', 'siitax',
+                             'fiitax', 'siitax', 'fica',
 
                             # Immigration
                             'firstYearInUS_R', 'firstYearInUS_S','immigrantStatusIn2016_HH',
@@ -203,8 +203,13 @@ class InequalityDataPrep(InequalityAnalysisBase.InequalityAnalysisBase):
 
         #CHANGE FROM GITTLEMAN: Included State Tax
         self.yearData['TotalTax_' + yr] = self.yearData['TotalTax_' + yr].add(self.yearData['siitax_' + yr], fill_value=0) 
+
+        # Add FICA -- was not included in Gittleman?
+        self.yearData['TotalTax_' + yr] = self.yearData['TotalTax_' + yr].add(self.yearData['fica_' + yr]/2.0, fill_value=0)
+
         self.yearData['afterTaxIncomeHH_' + yr] = self.yearData['totalIncomeHH_' + yr].sub(self.yearData['TotalTax_' + yr], fill_value=0)
-                     
+
+
     def processCrossSectional_InflateValues(self):
         '''
         Inflate our key dollar values to the 'toYear' of this analysis

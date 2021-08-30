@@ -423,7 +423,7 @@ class GittlemanAnalysisTest(unittest.TestCase):
 
         allVars = ['Total_ChangeInWealth_'  + self.ga.inflatedTimespan,'Total_CapitalGains_'  + self.ga.inflatedTimespan,'Total_GrossSavings_'  + self.ga.inflatedTimespan, 
                 'netMoveIn_' + self.ga.inflatedTimespan, 'netMoveOut_' + self.ga.inflatedTimespan, 'netIRAandAnnuityChange_' + self.ga.inflatedTimespan,
-                'Total_NetActiveSavings_'  + self.ga.inflatedTimespan, 'activeSavingsRate_PerPerson_' + self.ga.inflatedTimespan]
+                'Total_NetActiveSavings_'  + self.ga.inflatedTimespan, 'activeSavingsRate_AnnualHH_' + self.ga.inflatedTimespan]
 
         for var in allVars:
             self.assertTrue(self.ga.dta[var].eq(0).all())
@@ -483,9 +483,9 @@ class GittlemanAnalysisTest(unittest.TestCase):
 
 
         # self.dta['Total_NetActiveSavings_'  + self.inflatedTimespan]= self.dta['Total_GrossSavings_' + self.inflatedTimespan].sub(self.dta['largeGift_All_AmountHH_' + self.eyStr], fill_value=0).add(self.dta['netMoveOut_' + self.inflatedTimespan], fill_value=0).sub(self.dta['netMoveIn_' + self.inflatedTimespan], fill_value=0).sub(self.dta['netIRAandAnnuityChange_' + self.inflatedTimespan], fill_value=0)
-        # self.dta['activeSavingsRate_PerPerson_' + self.inflatedTimespan] = (self.dta['Total_NetActiveSavings_'  + self.inflatedTimespan] / self.duration)
+        # self.dta['activeSavingsRate_AnnualHH_' + self.inflatedTimespan] = (self.dta['Total_NetActiveSavings_'  + self.inflatedTimespan] / self.duration)
         # Its difficult to tell which income var Gittleman used, but it appears to be the Nominal, PreTax Income
-        # sself.dta['activeSavingsRate_PerPerson_' + self.inflatedTimespan] = (self.dta['activeSavingsRate_PerPerson_' + self.inflatedTimespan].div(self.dta['averageNominalIncome_AllYears_' + self.inflatedTimespan], fill_value=0)) 
+        # sself.dta['activeSavingsRate_AnnualHH_' + self.inflatedTimespan] = (self.dta['activeSavingsRate_AnnualHH_' + self.inflatedTimespan].div(self.dta['averageNominalIncome_AllYears_' + self.inflatedTimespan], fill_value=0))
 
 
 

@@ -925,9 +925,9 @@ class CalcSavingsRates(InequalityAnalysisBase.InequalityAnalysisBase):
         self.dta['Annual_netAssetMove_' + self.inflatedTimespan] = (1/self.duration)*self.dta['netAssetMove_' + self.inflatedTimespan]
         self.dta['Annual_largeGift_All_AmountHH_' + self.inflatedTimespan] = (1/self.duration)*self.dta['largeGift_All_AmountHH_' + self.inflatedTimespan]
 
-        self.dta['activeSavingsRate_PerPerson_' + self.inflatedTimespan] = (self.dta['Annual_Total_NetActiveSavings_' + self.inflatedTimespan])
+        self.dta['activeSavingsRate_AnnualHH_' + self.inflatedTimespan] = (self.dta['Annual_Total_NetActiveSavings_' + self.inflatedTimespan])
         # Its difficult to tell which income var Gittleman used, but it appears to be the Real, PreTax Income
-        self.dta['activeSavingsRate_PerPerson_' + self.inflatedTimespan] = (self.dta['activeSavingsRate_PerPerson_' + self.inflatedTimespan].div(
+        self.dta['activeSavingsRate_AnnualHH_' + self.inflatedTimespan] = (self.dta['activeSavingsRate_AnnualHH_' + self.inflatedTimespan].div(
                 self.dta['averageRealBeforeTaxIncome_AllYears_' + self.inflatedTimespan], fill_value=0))
 
         # The unbanked fall into a special category of NAs -- they will show 0
@@ -965,7 +965,7 @@ class CalcSavingsRates(InequalityAnalysisBase.InequalityAnalysisBase):
                                                             'changeInRealNetWorthWithHomeAnd401k_AfterBalanceFillin_' + self.inflatedTimespan,
                                                             'inflatedAfterTaxIncome_' + self.inflatedStart,
                                                             'Total_NetActiveSavings_' + self.inflatedTimespan,
-                                                            'activeSavingsRate_PerPerson_' + self.inflatedTimespan,
+                                                            'activeSavingsRate_AnnualHH_' + self.inflatedTimespan,
 
                                                             'Total_ChangeInWealth_' + self.inflatedTimespan,
                                                             'Total_CapitalGains_' + self.inflatedTimespan,

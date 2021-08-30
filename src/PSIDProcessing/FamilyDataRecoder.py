@@ -858,13 +858,16 @@ class FamilyDataRecoder:
         self.recodeMovingAndRenting()
         
         # Calc Mortgage Payment.
-        # Not - this field has many problems.  Needs to be rechecked for each year
+        # TODO - this field has -many- problems.  Needs to be rechecked for each year
         if (self.year != 1988 and self.year != 1989 and self.year != 1982 and self.year <= 1993):  # Wasnt asked these years
             self.dta['MortgagePaymentAnnualHH'] = self.dta.MortgagePaymentAnnualHH_PartialBefore1993
-        elif (self.year >= 1999):  
-            self.dta['MortgagePaymentAnnualHH'] = self.dta.MortgagePaymentMonthlyHH_1999On * 12
+        elif (self.year >= 1999):
+            # WARNING -- the field is labeled as a monthly value, but they don't make sense as anything but annual (at least in 2019 and 2017)
+            monthsToYearsHere = 1
+            self.dta['MortgagePaymentAnnualHH'] = self.dta.MortgagePaymentMonthlyHH_1999On * monthsToYearsHere
             self.dta.loc[self.dta.MortgagePaymentAnnualHH < 0, 'MortgagePaymentAnnualHH'] = 0 # Imputed values in original allowed negative.
-        else:  
+
+        else:
             self.dta['MortgagePaymentAnnualHH'] = np.NaN
 
         # 'ER66045': 'HomePropertyTaxAnnualHH',  #"A21 ANNUAL PROPERTY TAX"
@@ -875,7 +878,7 @@ class FamilyDataRecoder:
         # 'ER66047': 'HomeInsuranceAnnualHH', # A22 ANNUAL OWNR INSURANC"
         self.dta.HomeInsuranceAnnualHH.replace({9998:np.NaN, 9999: np.NaN}, inplace=True)
         self.dta.loc[~(self.dta.hasHouse), 'HomeInsuranceAnnualHH'] = np.NaN
-    
+
         ############
         ## Retirement Contribs 
         ############

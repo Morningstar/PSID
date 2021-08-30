@@ -237,7 +237,7 @@ class AggregatePopulationAnalyzer(InequalityAnalysisBase.InequalityAnalysisBase)
         tmp = self.dta.loc[self.dta['cleaningStatus_Wealth_' + self.timespan].isna()].copy()
 
         # In particular, we're looking at Savings Rates - so create a filtered version of that: With wide Boundaries of 2x income
-        goodSavingRateFlag =  (tmp[('activeSavingsRate_PerPerson_' + self.inflatedTimespan)] < 2*100) & (tmp[('activeSavingsRate_PerPerson_' + self.inflatedTimespan)] > -2*100)
+        goodSavingRateFlag =  (tmp[('activeSavingsRate_AnnualHH_' + self.inflatedTimespan)] < 2*100) & (tmp[('activeSavingsRate_AnnualHH_' + self.inflatedTimespan)] > -2*100)
         tmp['trimmed_averageRealBeforeTaxIncome_AllYears_' + self.inflatedTimespan] = tmp['averageRealBeforeTaxIncome_AllYears_' + self.inflatedTimespan]
         tmp.loc[~goodSavingRateFlag, 'trimmed_averageRealBeforeTaxIncome_AllYears_' + self.inflatedTimespan]  = None
         tmp['trimmed_Total_NetActiveSavings_' + self.inflatedTimespan] = tmp['Total_NetActiveSavings_' + self.inflatedTimespan]
@@ -384,7 +384,7 @@ class AggregatePopulationAnalyzer(InequalityAnalysisBase.InequalityAnalysisBase)
             'changeInRealNetWorthWithHomeAnd401k_sum': ('changeInRealNetWorthWithHomeAnd401k_AfterBalanceFillin_' + self.inflatedTimespan, 'sum'),
             'netactive_real_sum': ('Total_NetActiveSavings_' + self.inflatedTimespan, 'sum'),
 
-            'active_median': ('activeSavingsRate_PerPerson_' + self.inflatedTimespan, 'median'),
+            'active_median': ('activeSavingsRate_AnnualHH_' + self.inflatedTimespan, 'median'),
 
             # Input Values for Savings Calc
             'change_in_asset_value_sum': ('Total_ChangeInWealth_' + self.inflatedTimespan, 'sum'),
@@ -467,7 +467,7 @@ class AggregatePopulationAnalyzer(InequalityAnalysisBase.InequalityAnalysisBase)
         # tmp = tmp.join(dummies)
 
         tmp.rename(columns={'averageRealBeforeTaxIncome_AllYears_' + self.inflatedTimespan: 'Income',
-                            'activeSavingsRate_PerPerson_' + self.inflatedTimespan: 'SavingsRate',
+                            'activeSavingsRate_AnnualHH_' + self.inflatedTimespan: 'SavingsRate',
                             'ageR_' + self.syStr: 'Age',
                             'NumChildrenInFU_' + self.syStr: 'NumChildren',
                             'educationYearsR_' + self.syStr: 'Education'
@@ -546,8 +546,8 @@ class AggregatePopulationAnalyzer(InequalityAnalysisBase.InequalityAnalysisBase)
         self.totalInflationEndToInflatedYear = self.inflator.getInflationFactorBetweenTwoYears(self.endYear, self.toYear)
         self.totalInflationStartToInflatedYear = self.inflator.getInflationFactorBetweenTwoYears(self.startYear, self.toYear)
 
-        self.dta['activeSavingsRate_PerPerson_' + self.inflatedTimespan] = 100.0 * self.dta[
-            'activeSavingsRate_PerPerson_' + self.inflatedTimespan]
+        self.dta['activeSavingsRate_AnnualHH_' + self.inflatedTimespan] = 100.0 * self.dta[
+            'activeSavingsRate_AnnualHH_' + self.inflatedTimespan]
 
         assetResults = self.calcAssetLevelComponentsForYear()
         if saveToFile:
@@ -593,7 +593,7 @@ if __name__ == "__main__":
 
     apa.executeForTimespan(saveToFile=False,includeRegressions= False)
     apa.createSegmentBins_Longitudinal()
-    apa.dta['activeSavingsRate_PerPerson_' + apa.inflatedTimespan] = 100.0 * apa.dta['activeSavingsRate_PerPerson_' + apa.inflatedTimespan]
+    apa.dta['activeSavingsRate_AnnualHH_' + apa.inflatedTimespan] = 100.0 * apa.dta['activeSavingsRate_AnnualHH_' + apa.inflatedTimespan]
 
     tmp = apa.prepDataForRegressions()
 

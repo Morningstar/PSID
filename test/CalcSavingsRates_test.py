@@ -355,7 +355,7 @@ class CalcSavingsRates_Test(unittest.TestCase):
 
         allVars = ['Total_ChangeInWealth_'  + self.csr.inflatedTimespan,'Total_CapitalGains_'  + self.csr.inflatedTimespan,'Total_GrossSavings_'  + self.csr.inflatedTimespan, 
                 'netMoveIn_' + self.csr.inflatedTimespan, 'netMoveOut_' + self.csr.inflatedTimespan,
-                'Total_NetActiveSavings_'  + self.csr.inflatedTimespan, 'activeSavingsRate_PerPerson_' + self.csr.inflatedTimespan]
+                'Total_NetActiveSavings_'  + self.csr.inflatedTimespan, 'activeSavingsRate_AnnualHH_' + self.csr.inflatedTimespan]
 
         for var in allVars:
             self.assertTrue(self.csr.dta[var].eq(0).all())

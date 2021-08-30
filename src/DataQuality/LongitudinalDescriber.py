@@ -83,7 +83,7 @@ class LongitudinalDescriber(InequalityAnalysisBase.InequalityAnalysisBase):
         varsToExpore = varsUsed + [weightVar, 'averageNominalIncome_AllYears_' + self.timespan, 'TotalTax_' + self.eyStr, 'TotalTax_' + self.syStr] + \
                                    ['Total_ChangeInWealth_'  + self.inflatedTimespan, 'Total_CapitalGains_'  + self.inflatedTimespan, 'Total_GrossSavings_'  + self.inflatedTimespan, 'Total_NetActiveSavings_'  + self.inflatedTimespan, 
                                    'netMoveIn_' + self.inflatedTimespan, 'netMoveOut_' + self.inflatedTimespan, 
-                                   'activeSavingsRate_PerPerson_' + self.inflatedTimespan
+                                   'activeSavingsRate_AnnualHH_' + self.inflatedTimespan
                                    ]
 
         # Output summary stats on the data, to check everything is ok:
@@ -195,7 +195,7 @@ class LongitudinalDescriber(InequalityAnalysisBase.InequalityAnalysisBase):
                     'real_networth_start_sum': ('inflatedNetWorthWithHome_' + self.inflatedStart, 'sum'),
                     'real_networth_end_sum': ('inflatedNetWorthWithHome_' + self.inflatedEnd, 'sum'),
                     
-                    'active_savings_rate_median': ('activeSavingsRate_PerPerson_' + self.inflatedTimespan, 'median'), 
+                    'active_savings_rate_median': ('activeSavingsRate_AnnualHH_' + self.inflatedTimespan, 'median'),
                     'real_pre_tax_income_sum' : ('averageRealBeforeTaxIncome_AllYears_' + self.inflatedTimespan, 'sum'),
                     'netactive_real_sum': ('Total_NetActiveSavings_'  + self.inflatedTimespan, 'sum'),                    
                                 
