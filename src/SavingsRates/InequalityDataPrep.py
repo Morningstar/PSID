@@ -88,7 +88,7 @@ class InequalityDataPrep(InequalityAnalysisBase.InequalityAnalysisBase):
                             'totalIncomeHH',  'institutionLocationHH',
                             'hasHouse',
                             'valueOfHouse_Gross', 'valueOfHouse_Debt',
-                            'FederalIncomeTaxesRS', 'FederalIncomeTaxesO', 'fiitax', 'siitax',
+                            'FederalIncomeTaxesRS', 'FederalIncomeTaxesO', 'fiitax', 'siitax', 'fica'
                             ]
 
 

@@ -1003,7 +1003,7 @@ class CalcSavingsRates(InequalityAnalysisBase.InequalityAnalysisBase):
 ''' Allow execution from command line, etc. Useful for debugging.'''
 if __name__ == "__main__":
     calcer = CalcSavingsRates(
-        baseDir='C:/dev/sensitive_data/InvestorSuccess/Inequality',
+        baseDir='C:/dev/src/MorningstarGithub/PSID',
         familyInputSubDir='inequalityInput_enrichedPop',
         inputBaseName="", # "testData_", #  "" for normal data
         outputBaseName="WithSavings_",
@@ -1043,5 +1043,5 @@ if __name__ == "__main__":
 
     tmpDta = InequalityAnalysisBase.selectiveReorder(calcer.dta, debugFieldsOfInterest, alphabetizeTheOthers=True)
 
-    tmpDta.to_csv('C:/dev/sensitive_data/InvestorSuccess/Inequality/inequalityOutput/testCalcSavings_Full.csv')
+    tmpDta.to_csv('C:/dev/src/MorningstarGithub/PSID/outputData/testCalcSavings_Full.csv')
 

@@ -8,7 +8,7 @@ from pandas.testing import assert_frame_equal, assert_series_equal
 class TaxSimFormatterTest(unittest.TestCase):
      
     def initAnalyzer(self):
-        self.ts = TaxSimFormatter.TaxSimFormatter(PSID_INPUT_DATA_DIR='C:/dev/public_data/PSID',  # we need this for the State Codes
+        self.ts = TaxSimFormatter.TaxSimFormatter(PSID_INPUT_DATA_DIR='C:/Dev/src/MorningstarGithub/PSID/inputData',  # we need this for the State Codes
                                                   OUTPUT_DATA_DIR='B')
       
     def createDummyData(self, year):
@@ -129,7 +129,7 @@ class TaxSimFormatterTest(unittest.TestCase):
         
     def test_saveAndReadTaxSimInput(self):
         self.test_convertToTaxSim()
-        self.ts.outputDir = 'C:/dev/sensitive_data/InvestorSuccess/Inequality/test/'
+        self.ts.outputDir = 'C:/Dev/src/MorningstarGithub/PSID/outputData/test/'
         self.ts.saveTaxSimInput()
         dta = self.ts.readTaxSimInput()
         self.assertTrue(len(dta)==4)

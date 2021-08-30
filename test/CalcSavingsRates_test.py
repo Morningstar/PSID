@@ -9,7 +9,9 @@ from pandas.testing import assert_frame_equal, assert_series_equal
 # import importlib
 # importlib.reload(rlc)
 
-"""Tests for SW's Savings Analysis Functions"""
+LOCATION_OF_OUTPUT_DATA = "C:/Dev/src/MorningstarGithub/PSID/outputData/"
+
+"""Tests for Morningstar's Savings Analysis Functions"""
 
 def closeEnough(a, b):
     try:
@@ -28,7 +30,7 @@ class CalcSavingsRates_Test(unittest.TestCase):
         self.inflationMocker = self.patcher.start()
         self.inflationMocker().getInflationFactorBetweenTwoYears.return_value = 1
 
-        self.csr = CalcSavingsRates.CalcSavingsRates(baseDir="A",
+        self.csr = CalcSavingsRates.CalcSavingsRates(baseDir=LOCATION_OF_OUTPUT_DATA,
                                                       familyInputSubDir="B",
                                                       inputBaseName="D",
                                                       outputBaseName="E",
@@ -86,7 +88,7 @@ class CalcSavingsRates_Test(unittest.TestCase):
 
         if includeValueVars:
             ''' Vars used to saving versus capital gains'''
-            componentVars = ['House_Gross', 'House_Debt',
+            componentVars = ['House_Gross', 'House_Debt', 'House_Net',
                              'OtherRealEstate_Net', 'Business_Net',
                              'BrokerageStocks_Net', 'CheckingAndSavings_Net',
                              'Vehicle_Net', 'OtherAssets_Net',
@@ -96,9 +98,18 @@ class CalcSavingsRates_Test(unittest.TestCase):
             valueVars_End = ['valueOf' + s + "_" + self.csr.eyStr for s in componentVars]    
             boughtVars_End = ['PrivateRetirePlan_SinceLastQYr_AmountMovedIn_' + self.csr.eyStr] + [s + '_SinceLastQYr_AmountBought_' + self.csr.eyStr for s in ['OtherRealEstate', 'Business', 'BrokerageStocks']]
             soldVars_End = ['PrivateRetirePlan_SinceLastQYr_AmountMovedOut_' + self.csr.eyStr] + [s + '_SinceLastQYr_AmountSold_' + self.csr.eyStr for s in ['OtherRealEstate', 'Business', 'BrokerageStocks']]
-            allVars = [] + valueVars_Start + valueVars_End  + boughtVars_End + soldVars_End
-            for var in allVars:
+            floatVars = [] + valueVars_Start + valueVars_End  + boughtVars_End + soldVars_End
+            for var in floatVars:
                 testData[var] = 0
+
+            assetTypes = ['House', 'OtherRealEstate', 'Business', 'BrokerageStocks', 'CheckingAndSavings',
+                             'Vehicle', 'OtherAssets', 'AllOtherDebts', 'PrivateRetirePlan', 'EmployerRetirePlan']
+            hasVars_Start = ['has' + s + "_" + self.csr.syStr for s in assetTypes]
+            hasVars_End = ['has' + s + "_" + self.csr.eyStr for s in assetTypes]
+            boolVars = [] + hasVars_Start + hasVars_End
+            for var in boolVars:
+                testData[var] = True
+
     
         if includeChangeInValueVars:
             ''' Vars as inputs to Analyze Savings Rate'''
@@ -110,8 +121,9 @@ class CalcSavingsRates_Test(unittest.TestCase):
             totalChangeVars = [s + "_TotalChangeInWealth_" + self.csr.inflatedTimespan for s in componentVarsNoGrossOrNet]
             capitalGainsVars = [s + "_CapitalGains_" + self.csr.inflatedTimespan for s in componentVarsNoGrossOrNet]
             grossSavingsVars = [s + "_Savings_" + self.csr.inflatedTimespan for s in componentVarsNoGrossOrNet]
-            
-            allVars = [] + totalChangeVars + capitalGainsVars + grossSavingsVars + \
+            openCloseTransferVars = [s + "_OpenCloseTransfers_" + self.csr.inflatedTimespan for s in componentVarsNoGrossOrNet]
+
+            allVars = [] + totalChangeVars + capitalGainsVars + grossSavingsVars + openCloseTransferVars + \
                     ['PersonMovedIn_SinceLastQYr_AssetsMovedIn_'   + self.csr.eyStr, 
                      'PersonMovedIn_SinceLastQYr_DebtsMovedIn_' + self.csr.eyStr, 
                      'PersonMovedOut_SinceLastQYr_AssetsMovedOut_' + self.csr.eyStr,
@@ -153,11 +165,14 @@ class CalcSavingsRates_Test(unittest.TestCase):
         self.csr.dta =  data
         self.csr.calcDetermineAssetLevelCapitalGains_SimpliedSWStyle()
 
+        ''' TODO :: Update to Check Status Field 
         self.assertTrue(self.csr.dta.loc[self.csr.dta[self.idVar] =='1', 'BrokerageStocks' + '_WarningNoStock_' + self.csr.inflatedTimespan].iloc[0])
 
         self.assertTrue(math.isnan(self.csr.dta.loc[self.csr.dta[self.idVar] =='2',
                    "BrokerageStocks" + '_WarningNoStock_' + self.csr.inflatedTimespan].iloc[0]))
+        '''
 
+        # Incomplete -- need to update with new account fill-in logic
         self.assertTrue(math.isnan(self.csr.dta.loc[self.csr.dta[self.idVar] =='1',
                    "BrokerageStocks" + '_TotalChangeInWealth_' + self.csr.inflatedTimespan].iloc[0]))
 
@@ -330,6 +345,7 @@ class CalcSavingsRates_Test(unittest.TestCase):
         self.assertTrue(closeEnough(-10000-interest, self.csr.dta.loc[self.csr.dta[self.idVar] =='1', 'OtherAssets_Savings_' + self.csr.inflatedTimespan].iloc[0]))
         self.assertTrue(closeEnough(interest, self.csr.dta.loc[self.csr.dta[self.idVar] =='1', 'OtherAssets_CapitalGains_' + self.csr.inflatedTimespan].iloc[0]))
 
+        # Incomplete -- need to update with new account fill-in logic
         interest = 0 # -(26000 * .15884) #5 year inflation
         self.assertTrue(closeEnough(-8000 , self.csr.dta.loc[self.csr.dta[self.idVar] =='1', 'AllOtherDebts_TotalChangeInWealth_' + self.csr.inflatedTimespan].iloc[0]))
         self.assertTrue(closeEnough(-8000-interest , self.csr.dta.loc[self.csr.dta[self.idVar] =='1', 'AllOtherDebts_Savings_' + self.csr.inflatedTimespan].iloc[0]))
